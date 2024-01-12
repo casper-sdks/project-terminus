@@ -82,7 +82,7 @@ jobs:
           ls -ltra
           cd script
           ls -ltra
-          chmod +x docker-copy-assets.sh && ./docker-copy-assets.sh && cd ..
+          chmod +x docker-copy-assets && ./docker-copy-assets && cd ..
           ls -ltra
           chmod +x gradlew
           ./gradlew clean cucumberCli -DrootLogger.level=OFF
