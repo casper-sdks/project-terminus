@@ -70,6 +70,7 @@ jobs:
       # Gradle needs execute permissions
       - name: Run project bootstrap
         run: |
+          cd casper-java-sdk
           chmod +x script/bootstrap
           ./script/bootstrap
 
