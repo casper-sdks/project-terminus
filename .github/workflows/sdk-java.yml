@@ -31,48 +31,50 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      # Build the SDK jar files
-      - name: Build SDK JAR
-        working-directory: casper-java-sdk
-        run: ./gradlew clean build -x test
-
-      # Upload the built SDK jar as a project artifact
-      - name: Upload SDK jar to artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: casper-java-sdk-jar
-          path: |
-            casper-java-sdk/build/libs/*.jar
-
-      # Checkout the test platform java code
-      - name: Checkout test platform code
-        uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-
-      # Download the SDK jar artifact
-      - name: Download casper-java-sdk-jar artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: casper-java-sdk-jar
-
-      # Gradle needs execute permissions
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+#      # Build the SDK jar files
+#      - name: Build SDK JAR
+#        working-directory: casper-java-sdk
+#        run: ./gradlew clean build -x test
+#
+#      # Upload the built SDK jar as a project artifact
+#      - name: Upload SDK jar to artifacts
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: casper-java-sdk-jar
+#          path: |
+#            casper-java-sdk/build/libs/*.jar
+#
+#      # Checkout the test platform java code
+#      - name: Checkout test platform code
+#        uses: actions/checkout@v2
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v2
+#        with:
+#          java-version: '11'
+#          distribution: 'adopt'
+#
+#      # Download the SDK jar artifact
+#      - name: Download casper-java-sdk-jar artifact
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: casper-java-sdk-jar
+#
+#      # Gradle needs execute permissions
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
 
       # Gradle needs execute permissions
       - name: Run project bootstrap
         run: |
-          chmod +x 
+          chmod +x script/bootstrap
+          ./script/bootstrap
 
       # Move the assets to their required folders
       # Run the actual cucumber tests
       - name: Test with cucumber
         run: |
-          cd sh && chmod +x docker-copy-assets.sh && ./docker-copy-assets.sh && cd ..              
+          cd script && chmod +x docker-copy-assets.sh && ./docker-copy-assets.sh && cd ..
+          chmod +x gradlew
           ./gradlew clean cucumberCli -DrootLogger.level=OFF
 
       - name: Publish Test Report
