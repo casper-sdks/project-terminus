@@ -80,7 +80,10 @@ jobs:
         run: |
           cd casper-java-sdk
           ls -ltra
-          cd script && chmod +x docker-copy-assets.sh && ./docker-copy-assets.sh && cd ..
+          cd script
+          ls -ltra
+          chmod +x docker-copy-assets.sh && ./docker-copy-assets.sh && cd ..
+          ls -ltra
           chmod +x gradlew
           ./gradlew clean cucumberCli -DrootLogger.level=OFF
 
