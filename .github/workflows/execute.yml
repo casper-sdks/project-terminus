@@ -43,7 +43,6 @@ jobs:
           echo "Using docker.io image...${{ github.event.inputs.node-version }}"         
           docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl:${{ github.event.inputs.node-version }}
 
-
       - name: NCTL Docker Image Doesn't Exist
         if: ${{ steps.nctl-docker-image-exists.outputs.tag != 'found' }}
         run: |
