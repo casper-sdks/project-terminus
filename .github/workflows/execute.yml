@@ -33,7 +33,6 @@ jobs:
           repository: stormeye2000/cspr-nctl
           tag: '${{ github.event.inputs.node-version }}'
 
-
       - name: Checkout the dockerfile
         uses: actions/checkout@v3
 
@@ -49,6 +48,12 @@ jobs:
           echo "Building docker image...${{ github.event.inputs.node-version }}"
           docker build --build-arg="GITBRANCH=${{ github.event.inputs.node-version }}" -t stormeye2000/cspr-nctl .
           docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: /tmp/image.tar
 
   workflow:
 
