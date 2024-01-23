@@ -24,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Execute SDK Tests
 
+  steps:
+
   workflow:
 
     if: ${{github.event.inputs.run-java-tests == 'true'}}
