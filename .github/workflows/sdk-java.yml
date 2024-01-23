@@ -23,6 +23,7 @@ jobs:
           repository: casper-sdks/casper-java-sdk
           ref: ${{ inputs.java-repo }}
           path: casper-java-sdk
+          submodules: true
 
       # JDK environment to build the SDK jar
       - name: Setup SDK Java environment
@@ -71,6 +72,7 @@ jobs:
       - name: Run project bootstrap
         run: |
           cd casper-java-sdk
+          git submodule init
           git submodule update --init --recursive
 #          chmod +x script/bootstrap
 #          ./script/bootstrap
