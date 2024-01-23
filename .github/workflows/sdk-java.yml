@@ -71,7 +71,7 @@ jobs:
       - name: Run project bootstrap
         run: |
           cd casper-java-sdk
-          mkdir sdk-std-test-resources
+          mkdir testdir
           chmod +x script/bootstrap
           ./script/bootstrap
 
