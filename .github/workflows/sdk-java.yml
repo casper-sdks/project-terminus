@@ -88,6 +88,7 @@ jobs:
           ls -ltra
           chmod +x docker-copy-assets && ./docker-copy-assets && cd ..
           ls -ltra
+          cd ..
           chmod +x gradlew
           ./gradlew clean cucumberCli -DrootLogger.level=OFF
 
