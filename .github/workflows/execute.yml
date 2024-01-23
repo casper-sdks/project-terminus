@@ -57,12 +57,11 @@ jobs:
     if: ${{github.event.inputs.run-python-tests == 'true'}}
     uses: ./.github/workflows/sdk-java.yml
     with:
-      config-path: .github/labeler.yml
-    secrets: inherit
-
+      java-repo: ${{ github.event.inputs.java-repo }}
+      node-version: ${{ github.event.inputs.node-version }}
   python-sdk:
     if: ${{github.event.inputs.run-python-tests == 'true'}}
     uses: ./.github/workflows/sdk-python.yml
     with:
-      config-path: .github/labeler.yml
-    secrets: inherit
+      java-repo: ${{ github.event.inputs.java-repo }}
+      node-version: ${{ github.event.inputs.node-version }}
