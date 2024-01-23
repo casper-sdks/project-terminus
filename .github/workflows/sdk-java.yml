@@ -71,9 +71,9 @@ jobs:
       - name: Run project bootstrap
         run: |
           cd casper-java-sdk
-          mkdir testdir
-          chmod +x script/bootstrap
-          ./script/bootstrap
+          git submodule update --init --recursive
+#          chmod +x script/bootstrap
+#          ./script/bootstrap
 
       # Move the assets to their required folders
       # Run the actual cucumber tests
