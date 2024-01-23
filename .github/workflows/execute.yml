@@ -16,6 +16,15 @@ on:
         description: 'Java Repo'
         required: false
         default: 'issues/e2e_integration'
+      run-python-tests:
+        description: 'Run Python SDK Tests'
+        required: true
+        default: true
+        type: boolean
+      python-repo:
+        description: 'Python Repo'
+        required: false
+        default: 'dev'
 
 jobs:
 
@@ -30,13 +39,16 @@ jobs:
         run: |
           ls -ltra
 
+      - name: Java SDK Tests
+        if: ${{github.event.inputs.run-java-tests == 'true'}}
+        uses: ./.github/workflows/sdk-java.yml
+        with:
+          java-repo: ${{ github.event.inputs.java-repo }}
+          node-version: ${{ github.event.inputs.node-version }}
 
-  workflow:
-
-    if: ${{github.event.inputs.run-java-tests == 'true'}}
-    needs: build
-    name: Java SDK Tests
-    uses: ./.github/workflows/sdk-java.yml
-    with:
-      java-repo: ${{ github.event.inputs.java-repo }}
-      node-version: ${{ github.event.inputs.node-version }}
+      - name: Python SDK Tests
+        if: ${{github.event.inputs.run-python-tests == 'true'}}
+        uses: ./.github/workflows/sdk-python.yml
+        with:
+          java-repo: ${{ github.event.inputs.java-repo }}
+          node-version: ${{ github.event.inputs.node-version }}
