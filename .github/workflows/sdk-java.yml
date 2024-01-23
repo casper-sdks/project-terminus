@@ -83,12 +83,12 @@ jobs:
       - name: Test with cucumber
         run: |
           cd casper-java-sdk
-          ls -ltra
           cd script
-          ls -ltra
-          chmod +x docker-copy-assets && ./docker-copy-assets && cd ..
+          chmod +x docker-copy-assets 
+          ./docker-copy-assets
           ls -ltra
           cd ..
+          ls -ltra
           chmod +x gradlew
           ./gradlew clean cucumberCli -DrootLogger.level=OFF
 
