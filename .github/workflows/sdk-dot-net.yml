@@ -94,6 +94,9 @@ jobs:
           ls -ltra
           cd cspr-sdk-standard-tests-net
           cd CsprSdkStandardTestsNet
+          cd scripts
+          chmod +x docker-copy-assets.sh
+          ./docker-copy-assets.sh && cd ..
           dotnet test --no-build --logger:junit --results-directory reports
 
       - name: Publish Test Report
