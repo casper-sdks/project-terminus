@@ -49,7 +49,6 @@ jobs:
           echo "Wait for NCTL"
           sleep 30s
 
-
       # Checkout the latest Casper Java SDK from their repo ready for a build
       - name: Checkout SDK source code
         uses: actions/checkout@v2

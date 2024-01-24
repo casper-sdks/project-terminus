@@ -41,7 +41,12 @@ jobs:
         run: |
           echo "Building docker image...${{ github.event.inputs.node-version }}"
           docker build --build-arg="GITBRANCH=${{ github.event.inputs.node-version }}" -t stormeye2000/cspr-nctl .
-          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl        
+          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl     
+
+      - name: Wait for NCTL
+        run: |
+          echo "Wait for NCTL"
+          sleep 30s         
 
       # Checkout the latest Casper Java SDK from their repo ready for a build
       - name: Checkout SDK source code
