@@ -44,6 +44,12 @@ jobs:
           docker build --build-arg="GITBRANCH=${{ github.event.inputs.node-version }}" -t stormeye2000/cspr-nctl .
           docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl        
 
+      - name: Wait for NCTL
+        run: |
+          echo "Wait for NCTL"
+          sleep 30s
+
+
       # Checkout the latest Casper Java SDK from their repo ready for a build
       - name: Checkout SDK source code
         uses: actions/checkout@v2
@@ -64,11 +70,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 7.0.x
-
-      - name: Debug
-        run: |
-          pwd
-          ls -ltra
 
       - name: Restore dependencies
         run: |
