@@ -64,6 +64,11 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
+      - name: Debug
+        run: |
+          pwd
+          ls -ltra
+
       - name: Restore dependencies
         run: |
           dotnet restore
