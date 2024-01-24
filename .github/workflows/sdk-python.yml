@@ -72,14 +72,14 @@ jobs:
       - name: Test with cucumber
         run: |
 
-          cd cspr-standard-tests-python/sh && 
+          cd cspr-sdk-standard-tests-python/sh && 
           chmod +x docker-copy-assets.sh && 
           ./docker-copy-assets.sh && cd ../..  
           
           cd casper-python-sdk
           sudo pip install -e .
 
-          cd ../cspr-standard-tests-python
+          cd ../cspr-sdk-standard-tests-python
           pip install -r requirements.txt
           pip install behave
           behave test/features --junit
