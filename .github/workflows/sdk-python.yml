@@ -54,16 +54,6 @@ jobs:
           ref: ${{ github.event.inputs.python-repo }}
           path: casper-python-sdk
 
-
-      - name: Pull (Fast-Forward) upstream changes
-        id: sync
-        uses: aormsby/Fork-Sync-With-Upstream-action@v2.1
-        with:
-          upstream_repository: casper-network/casper-python-sdk
-          upstream_branch: ${{ github.event.inputs.python-repo }}
-          target_branch: ${{ github.event.inputs.python-repo }}
-
-
       # Checkout the test platform Python code
       - name: Checkout the test platform Python code
         uses: actions/checkout@v2
