@@ -40,6 +40,11 @@ jobs:
       - name: Debug
         run: |
           ls -ltra
+          echo ${{ github.event.inputs.java-repo }}
+          echo ${{ github.event.inputs.python-repo }}
+          echo ${{ github.event.inputs.go-repo }}
+          echo ${{ github.event.inputs.dot-net-repo }}
+          echo ${{ github.event.inputs.js-repo }}
 
 
   java-sdk:
