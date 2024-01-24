@@ -38,31 +38,31 @@ jobs:
 
   java-sdk:
     if: ${{github.event.inputs.java-repo != ''}}
-    uses: ./.github/workflows/actions/sdk-java.yml
+    uses: ./.github/workflows/sdk-java.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
   python-sdk:
     if: ${{github.event.inputs.python-repo != ''}}
-    uses: ./.github/workflows/actions/sdk-python.yml
+    uses: ./.github/workflows/sdk-python.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
   dot-net-sdk:
     if: ${{github.event.inputs.dot-net-repo != ''}}
-    uses: ./.github/workflows/actions/sdk-dot-net.yml
+    uses: ./.github/workflows/sdk-dot-net.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
   go-sdk:
     if: ${{github.event.inputs.go-repo != ''}}
-    uses: ./.github/workflows/actions/sdk-go.yml
+    uses: ./.github/workflows/sdk-go.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
   js-sdk:
     if: ${{github.event.inputs.js-repo != ''}}
-    uses: ./.github/workflows/actions/sdk-js.yml
+    uses: ./.github/workflows/sdk-js.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
