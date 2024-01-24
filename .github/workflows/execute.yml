@@ -43,15 +43,15 @@ on:
         description: 'Go Repo'
         required: false
         default: 'dev'
-      run-js-tests:
-        description: 'Run JS SDK Tests'
-        required: true
-        default: true
-        type: boolean
-      js-repo:
-        description: 'JS Repo'
-        required: false
-        default: 'dev'
+#      run-js-tests:
+#        description: 'Run JS SDK Tests'
+#        required: true
+#        default: true
+#        type: boolean
+#      js-repo:
+#        description: 'JS Repo'
+#        required: false
+#        default: 'dev'
 
 jobs:
 
@@ -105,7 +105,7 @@ jobs:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
   js-sdk:
-    if: ${{github.event.inputs.run-js-tests == 'true'}}
+    if: ${{github.event.inputs.run-go-tests == 'true'}}
     uses: ./.github/workflows/sdk-js.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
