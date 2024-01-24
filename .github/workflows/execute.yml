@@ -10,23 +10,18 @@ on:
       java-repo:
         description: 'Java Repo'
         required: false
-        default: 'issues/e2e_integration'
       python-repo:
         description: 'Python Repo'
         required: false
-        default: 'dev'
       dot-net-repo:
         description: 'C# Repo'
         required: false
-        default: 'dev'
       go-repo:
         description: 'Go Repo'
         required: false
-        default: 'dev'
       js-repo:
         description: 'JS Repo'
         required: false
-        default: 'dev'
 
 jobs:
 
