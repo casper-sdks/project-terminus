@@ -12,17 +12,15 @@ on:
         required: true
         type: string
 
+permissions:
+  checks: write
+
 jobs:
 
   build:
 
     name: Java SDK Standard Tests
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      checks: write
-      id-token: write
 
     steps:
 
