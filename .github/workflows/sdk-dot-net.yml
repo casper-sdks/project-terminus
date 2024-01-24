@@ -12,9 +12,6 @@ on:
         required: true
         type: string
 
-permissions:
-  checks: write
-
 jobs:
 
   build:
