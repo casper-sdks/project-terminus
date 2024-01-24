@@ -1,4 +1,4 @@
-name: Execute SDK Standard Tests
+name: Execute Project Terminus
 
 on:
   workflow_dispatch:
@@ -32,14 +32,9 @@ jobs:
 
     steps:
 
-      - name: Debug
+      - name: Starting Workflow Jobs
         run: |
-          ls -ltra
-          echo ${{ github.event.inputs.java-repo }}
-          echo ${{ github.event.inputs.python-repo }}
-          echo ${{ github.event.inputs.go-repo }}
-          echo ${{ github.event.inputs.dot-net-repo }}
-          echo ${{ github.event.inputs.js-repo }}
+          echo 'Running Project Terminus Workflows...'
 
 
   java-sdk:
