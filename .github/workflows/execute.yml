@@ -52,7 +52,7 @@ jobs:
     if: ${{github.event.inputs.dot-net-repo != ''}}
     uses: ./.github/workflows/sdk-dot-net.yml
     with:
-      java-repo: ${{ github.event.inputs.java-repo }}
+      dot-net-repo: ${{ github.event.inputs.dot-net-repo }}
       node-version: ${{ github.event.inputs.node-version }}
   go-sdk:
     if: ${{github.event.inputs.go-repo != ''}}
