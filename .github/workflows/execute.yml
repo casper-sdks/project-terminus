@@ -28,7 +28,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    name: Execute SDK Tests
+    name: Execute Project Terminus
 
     steps:
 
