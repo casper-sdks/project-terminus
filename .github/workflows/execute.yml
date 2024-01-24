@@ -25,6 +25,33 @@ on:
         description: 'Python Repo'
         required: false
         default: 'dev'
+      run-dot-net-tests:
+        description: 'Run C# SDK Tests'
+        required: true
+        default: true
+        type: boolean
+      dot-net-repo:
+        description: 'C# Repo'
+        required: false
+        default: 'dev'
+      run-go-tests:
+        description: 'Run Go SDK Tests'
+        required: true
+        default: true
+        type: boolean
+      go-repo:
+        description: 'Go Repo'
+        required: false
+        default: 'dev'
+      run-js-tests:
+        description: 'Run JS SDK Tests'
+        required: true
+        default: true
+        type: boolean
+      js-repo:
+        description: 'JS Repo'
+        required: false
+        default: 'dev'
 
 jobs:
 
@@ -62,6 +89,24 @@ jobs:
   python-sdk:
     if: ${{github.event.inputs.run-python-tests == 'true'}}
     uses: ./.github/workflows/sdk-python.yml
+    with:
+      java-repo: ${{ github.event.inputs.java-repo }}
+      node-version: ${{ github.event.inputs.node-version }}
+  dot-net-sdk:
+    if: ${{github.event.inputs.run-dot-net-tests == 'true'}}
+    uses: ./.github/workflows/sdk-dot-net.yml
+    with:
+      java-repo: ${{ github.event.inputs.java-repo }}
+      node-version: ${{ github.event.inputs.node-version }}
+  go-sdk:
+    if: ${{github.event.inputs.run-go-tests == 'true'}}
+    uses: ./.github/workflows/sdk-go.yml
+    with:
+      java-repo: ${{ github.event.inputs.java-repo }}
+      node-version: ${{ github.event.inputs.node-version }}
+  js-sdk:
+    if: ${{github.event.inputs.run-js-tests == 'true'}}
+    uses: ./.github/workflows/sdk-js.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
