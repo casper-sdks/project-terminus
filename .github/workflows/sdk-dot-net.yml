@@ -81,10 +81,20 @@ jobs:
           dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore
+        run: |
+          pwd
+          ls -ltra
+          cd cspr-sdk-standard-tests-net
+          cd CsprSdkStandardTestsNet
+          dotnet build --no-restore
 
       - name: Test
-        run: dotnet test --no-build --logger:junit --results-directory reports
+        run: |
+          pwd
+          ls -ltra
+          cd cspr-sdk-standard-tests-net
+          cd CsprSdkStandardTestsNet
+          dotnet test --no-build --logger:junit --results-directory reports
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
