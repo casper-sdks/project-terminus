@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: stormeye2000/cspr-sdk-standard-tests-python
-          path: cspr-standard-tests-python
+          path: cspr-sdk-standard-tests-python
           ref: main
 
       # Set up Python
