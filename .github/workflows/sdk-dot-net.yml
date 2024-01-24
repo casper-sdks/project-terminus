@@ -105,7 +105,7 @@ jobs:
         # always run even if the previous step fails
         if: success() || failure()
         with:
-          report_paths: 'reports/*.xml'
+          report_paths: 'cspr-sdk-standard-tests-net/CsprSdkStandardTestsNet/reports/*.xml'
           detailed_summary: true
           include_passed: true
           summary: true
