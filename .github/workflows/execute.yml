@@ -46,7 +46,7 @@ jobs:
     if: ${{github.event.inputs.python-repo != ''}}
     uses: ./.github/workflows/sdk-python.yml
     with:
-      java-repo: ${{ github.event.inputs.java-repo }}
+      python-repo: ${{ github.event.inputs.python-repo }}
       node-version: ${{ github.event.inputs.node-version }}
   dot-net-sdk:
     if: ${{github.event.inputs.dot-net-repo != ''}}

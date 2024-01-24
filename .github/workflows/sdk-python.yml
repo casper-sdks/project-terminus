@@ -4,9 +4,19 @@
 #   - download the test platform
 #   - run the cucumber tests via behave
 
-name: CSPR Python SDK Standard Tests
+name: Project Terminus Python
 on:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      python-repo:
+        description: 'Python Repo'
+        required: false
+        type: string
+      node-version:
+        description: 'Node build repo'
+        required: true
+        type: string
+
 jobs:
   build:
     name: Setting Up NCTL
@@ -41,14 +51,26 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: casper-network/casper-python-sdk
-          ref: main
+          ref: ${{ github.event.inputs.python-repo }}
           path: casper-python-sdk
+
+
+      - name: Pull (Fast-Forward) upstream changes
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v2.1
+        with:
+          upstream_repository: casper-network/casper-python-sdk
+          upstream_branch: ${{ github.event.inputs.python-repo }}
+          target_branch: ${{ github.event.inputs.python-repo }}
+
 
       # Checkout the test platform Python code
       - name: Checkout the test platform Python code
         uses: actions/checkout@v2
         with:
+          repository: stormeye2000/cspr-standard-tests-python
           path: cspr-standard-tests-python
+          ref: main
 
       # Set up Python
       - name: Set Up Python 3.9
