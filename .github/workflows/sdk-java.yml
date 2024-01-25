@@ -85,11 +85,13 @@ jobs:
           ls -ltra
 
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v3
+        uses: mikepenz/action-junit-report@v4
         if: success() || failure() # always run even if the previous step fails
         with:
           report_paths: 'casper-java-sdk/build/reports/e2e/*.xml'
+          name: Java SDK Results
           detailed_summary: true
           include_passed: true
+          annotate_notice: true
           summary: true
 
