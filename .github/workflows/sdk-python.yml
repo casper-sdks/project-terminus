@@ -73,22 +73,23 @@ jobs:
         with:
           python-version: 3.9
 
-      # Run the actual cucumber tests
-      - name: Test with cucumber
+      # Build environment
+      - name: Build test environment
         run: |
-
           cd cspr-sdk-standard-tests-python/sh && 
           chmod +x docker-copy-assets.sh && 
-          ./docker-copy-assets.sh && cd ../..  
+          ./docker-copy-assets.sh && cd ../..       
           
-          cd casper-python-sdk
-          sudo pip install -e .
-
           cd ../cspr-sdk-standard-tests-python
           awk '{sub(/@dev/,"@${{ github.event.inputs.python-repo }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
           
           pip install -r requirements.txt
           pip install behave
+
+      # Run the actual cucumber tests
+      - name: Test with cucumber
+        run: |
+          cd cspr-sdk-standard-tests-python
           behave test/features --junit
 
       - name: Publish Test Report
