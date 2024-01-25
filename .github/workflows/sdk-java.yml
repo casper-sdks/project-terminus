@@ -15,7 +15,7 @@ on:
 jobs:
   build:
 
-    name: Java SDK Standard Tests
+    name: Terminus Java
     runs-on: ubuntu-latest
 
     steps:
@@ -88,7 +88,7 @@ jobs:
         uses: mikepenz/action-junit-report@v3
         if: success() || failure() # always run even if the previous step fails
         with:
-          report_paths: 'casper-java-sdk/reports/*.xml'
+          report_paths: 'casper-java-sdk/build/reports/e2e/*.xml'
           detailed_summary: true
           include_passed: true
           summary: true

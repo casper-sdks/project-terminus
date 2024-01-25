@@ -39,31 +39,31 @@ jobs:
         run: |
           echo 'Running Project Terminus Workflows...'
 
-  java-sdk:
+  terminus-java:
     if: ${{github.event.inputs.java-repo != ''}}
     uses: ./.github/workflows/sdk-java.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
-  python-sdk:
+  terminus-python:
     if: ${{github.event.inputs.python-repo != ''}}
     uses: ./.github/workflows/sdk-python.yml
     with:
       python-repo: ${{ github.event.inputs.python-repo }}
       node-version: ${{ github.event.inputs.node-version }}
-  dot-net-sdk:
+  terminus-dot-net:
     if: ${{github.event.inputs.dot-net-repo != ''}}
     uses: ./.github/workflows/sdk-dot-net.yml
     with:
       dot-net-repo: ${{ github.event.inputs.dot-net-repo }}
       node-version: ${{ github.event.inputs.node-version }}
-  go-sdk:
+  terminus-go:
     if: ${{github.event.inputs.go-repo != ''}}
     uses: ./.github/workflows/sdk-go.yml
     with:
       java-repo: ${{ github.event.inputs.java-repo }}
       node-version: ${{ github.event.inputs.node-version }}
-  js-sdk:
+  terminus-js:
     if: ${{github.event.inputs.js-repo != ''}}
     uses: ./.github/workflows/sdk-js.yml
     with:

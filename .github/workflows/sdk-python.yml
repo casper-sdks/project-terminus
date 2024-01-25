@@ -19,7 +19,7 @@ on:
 
 jobs:
   build:
-    name: Setting Up NCTL
+    name: Terminus Python
     runs-on: ubuntu-latest
 
     steps:
