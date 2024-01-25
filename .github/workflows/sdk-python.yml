@@ -51,13 +51,13 @@ jobs:
           echo "Wait for NCTL"
           sleep 30s
 
-      # Checkout the latest Casper Python SDK from their repo ready for a build
-      - name: Checkout SDK source code
-        uses: actions/checkout@v2
-        with:
-          repository: casper-network/casper-python-sdk
-          ref: ${{ github.event.inputs.python-repo }}
-          path: casper-python-sdk
+#      # Checkout the latest Casper Python SDK from their repo ready for a build
+#      - name: Checkout SDK source code
+#        uses: actions/checkout@v2
+#        with:
+#          repository: casper-network/casper-python-sdk
+#          ref: ${{ github.event.inputs.python-repo }}
+#          path: casper-python-sdk
 
       # Checkout the test platform Python code
       - name: Checkout the test platform Python code
@@ -85,6 +85,8 @@ jobs:
           sudo pip install -e .
 
           cd ../cspr-sdk-standard-tests-python
+          awk '{sub(/@dev/,"@${{ github.event.inputs.python-repo }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
+          
           pip install -r requirements.txt
           pip install behave
           behave test/features --junit
