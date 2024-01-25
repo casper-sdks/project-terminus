@@ -76,9 +76,9 @@ jobs:
       # Build environment
       - name: Build test environment
         run: |
-          cd cspr-sdk-standard-tests-python/sh && 
-          chmod +x docker-copy-assets.sh && 
-          ./docker-copy-assets.sh && cd ../..       
+          cd cspr-sdk-standard-tests-python/sh 
+          chmod +x docker-copy-assets.sh 
+          ./docker-copy-assets.sh    
           
           cd ../cspr-sdk-standard-tests-python
           awk '{sub(/@dev/,"@${{ github.event.inputs.python-repo }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
