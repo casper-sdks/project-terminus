@@ -79,9 +79,9 @@ jobs:
           cd script
           chmod +x docker-copy-assets 
           ./docker-copy-assets
+          chmod +x e2e-test
           cd ..
-          chmod +x gradlew
-          ./gradlew clean cucumberCli -DrootLogger.level=OFF
+          ls -ltra
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
