@@ -92,12 +92,11 @@ jobs:
           ls reports -lta
 
 
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
+      - name: Test Summary
+        uses: test-summary/action@v2
         with:
-          files: |
-            terminus-python/reports/*.xml    
+          paths: "terminus-python/reports/*.xml"
+        if: always()
 
 #      - name: Publish Test Report
 #        uses: mikepenz/action-junit-report@v4
