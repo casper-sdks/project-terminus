@@ -99,6 +99,7 @@ jobs:
         # always run even if the previous step fails
         if: success() || failure()
         with:
+          check_name: Terminus C#
           report_paths: 'terminus-dot-net/CsprSdkStandardTestsNet/reports/*.xml'
           detailed_summary: true
           include_passed: true
