@@ -3,8 +3,8 @@ name: CSPR Python SDK Standard Tests
 on:
   workflow_call:
     inputs:
-      dot-net-repo:
-        description: 'C# Repo'
+      dot-net-branch:
+        description: 'C# branch'
         type: string
         required: false
       node-version:
@@ -53,14 +53,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: make-software/casper-net-sdk
-          ref: ${{ inputs.java-repo }}
+          ref: ${{ inputs.dot-net-branch }}
           path: casper-net-sdk
 
       - name: Checkout the test platform
         uses: actions/checkout@v2
         with:
           repository: stormeye2000/cspr-sdk-standard-tests-net
-          path: cspr-sdk-standard-tests-net
+          path: terminus-dot-net
           ref: main
 
       - name: Setup .NET
@@ -73,7 +73,7 @@ jobs:
           cd casper-net-sdk
           dotnet build --configuration Release
           cd ..
-          cd cspr-sdk-standard-tests-net
+          cd terminus-dot-net
           cd CsprSdkStandardTestsNet
           dotnet remove package Casper.Network.SDK
           dotnet add reference /home/runner/work/project-terminus/project-terminus/casper-net-sdk/Casper.Network.SDK/Casper.Network.SDK.csproj
@@ -81,17 +81,13 @@ jobs:
 
       - name: Build
         run: |
-          pwd
-          ls -ltra
-          cd cspr-sdk-standard-tests-net
+          cd terminus-dot-net
           cd CsprSdkStandardTestsNet
           dotnet build --no-restore
 
       - name: Test
         run: |
-          pwd
-          ls -ltra
-          cd cspr-sdk-standard-tests-net
+          cd terminus-dot-net
           cd CsprSdkStandardTestsNet
           cd scripts
           chmod +x docker-copy-assets.sh
@@ -103,7 +99,7 @@ jobs:
         # always run even if the previous step fails
         if: success() || failure()
         with:
-          report_paths: 'cspr-sdk-standard-tests-net/CsprSdkStandardTestsNet/reports/*.xml'
+          report_paths: 'terminus-dot-net/CsprSdkStandardTestsNet/reports/*.xml'
           detailed_summary: true
           include_passed: true
           summary: true

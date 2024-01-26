@@ -7,20 +7,20 @@ on:
         description: 'Node build repo'
         required: true
         default: 'release-1.5.5'
-      java-repo:
-        description: 'Java Repo'
+      java-branch:
+        description: 'Java branch'
         required: false
-      python-repo:
-        description: 'Python Repo'
+      python-branch:
+        description: 'Python branch'
         required: false
-      dot-net-repo:
-        description: 'C# Repo'
+      dot-net-branch:
+        description: 'C# branch'
         required: false
-      go-repo:
-        description: 'Go Repo'
+      go-branch:
+        description: 'Go branch'
         required: false
-      js-repo:
-        description: 'JS Repo'
+      js-branch:
+        description: 'JS branch'
         required: false
 
 permissions:
@@ -41,32 +41,32 @@ jobs:
           echo 'Running Project Terminus Workflows...'
 
   Java:
-    if: ${{github.event.inputs.java-repo != ''}}
+    if: ${{github.event.inputs.java-branch != ''}}
     uses: ./.github/workflows/sdk-java.yml
     with:
-      java-repo: ${{ github.event.inputs.java-repo }}
+      java-branch: ${{ github.event.inputs.java-branch }}
       node-version: ${{ github.event.inputs.node-version }}
   Python:
-    if: ${{github.event.inputs.python-repo != ''}}
+    if: ${{github.event.inputs.python-branch != ''}}
     uses: ./.github/workflows/sdk-python.yml
     with:
-      python-repo: ${{ github.event.inputs.python-repo }}
+      python-branch: ${{ github.event.inputs.python-branch }}
       node-version: ${{ github.event.inputs.node-version }}
   Dot-Net:
-    if: ${{github.event.inputs.dot-net-repo != ''}}
+    if: ${{github.event.inputs.dot-net-branch != ''}}
     uses: ./.github/workflows/sdk-dot-net.yml
     with:
-      dot-net-repo: ${{ github.event.inputs.dot-net-repo }}
+      dot-net-branch: ${{ github.event.inputs.dot-net-branch }}
       node-version: ${{ github.event.inputs.node-version }}
   Go:
-    if: ${{github.event.inputs.go-repo != ''}}
+    if: ${{github.event.inputs.go-branch != ''}}
     uses: ./.github/workflows/sdk-go.yml
     with:
-      java-repo: ${{ github.event.inputs.java-repo }}
+      java-branch: ${{ github.event.inputs.java-branch }}
       node-version: ${{ github.event.inputs.node-version }}
   Js:
     if: ${{github.event.inputs.js-repo != ''}}
     uses: ./.github/workflows/sdk-js.yml
     with:
-      java-repo: ${{ github.event.inputs.java-repo }}
+      java-branch: ${{ github.event.inputs.java-branch }}
       node-version: ${{ github.event.inputs.node-version }}

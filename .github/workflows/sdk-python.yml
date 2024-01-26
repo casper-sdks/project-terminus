@@ -1,15 +1,9 @@
-# This workflow will:
-#   - download and start a NCTL docker image
-#   - download the latest casper-python-sdk
-#   - download the test platform
-#   - run the cucumber tests via behave
-
 name: Project Terminus Python
 on:
   workflow_call:
     inputs:
-      python-repo:
-        description: 'Python Repo'
+      python-branch:
+        description: 'Python branch'
         required: false
         type: string
       node-version:
@@ -74,7 +68,7 @@ jobs:
           ./docker-copy-assets.sh    
           cd ..          
 
-          awk '{sub(/@dev/,"@${{ github.event.inputs.python-repo }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
+          awk '{sub(/@dev/,"@${{ github.event.inputs.python-branch }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
           
           pip install -r requirements.txt
           pip install behave
