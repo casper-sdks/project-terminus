@@ -84,9 +84,13 @@ jobs:
         run: |
           cd terminus-python
           behave test/features --junit
+
+      - name: Debug
+        run: |
           pwd
           ls -lta
           ls reports -lta
+
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
