@@ -1,11 +1,10 @@
-name: CSPR Java SDK Standard Tests
-
+name: Project Terminus Python
 on:
   workflow_call:
     inputs:
-      java-branch:
-        description: 'Java branch'
-        required: true
+      python-branch:
+        description: 'Python branch'
+        required: false
         type: string
       node-version:
         description: 'Node build repo'
@@ -14,12 +13,10 @@ on:
 
 jobs:
   build:
-
-    name: Terminus Java
+    name: Terminus Python
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: tyriis/docker-image-tag-exists@v2.0.0
         id: nctl-docker-image-exists
         with:
@@ -41,55 +38,55 @@ jobs:
         run: |
           echo "Building docker image...${{ github.event.inputs.node-version }}"
           docker build --build-arg="GITBRANCH=${{ github.event.inputs.node-version }}" -t stormeye2000/cspr-nctl .
-          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl     
+          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl  
 
       - name: Wait for NCTL
         run: |
           echo "Wait for NCTL"
-          sleep 30s         
+          sleep 30s
 
-      # Checkout the latest Casper Java SDK from their repo ready for a build
-      - name: Checkout SDK source code
+
+      # Checkout the test platform Python code
+      - name: Checkout the test platform Python code
         uses: actions/checkout@v2
         with:
-          repository: casper-sdks/casper-java-sdk
-          ref: ${{ inputs.java-branch }}
-          path: terminus-java
-          submodules: true
+          repository: stormeye2000/cspr-sdk-standard-tests-python
+          path: terminus-python
+          ref: main
 
-      # JDK environment to build the SDK jar
-      - name: Setup SDK Java environment
-        uses: actions/setup-java@v2
+      # Set up Python
+      - name: Set Up Python 3.9
+        uses: actions/setup-python@v2
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          python-version: 3.9
 
-      - name: Run project bootstrap
+      # Build environment
+      - name: Build test environment
         run: |
-          cd terminus-java
-          git submodule init
-          git submodule update --init --recursive
-          git submodule update --remote
+          cd terminus-python/sh 
+          chmod +x docker-copy-assets.sh 
+          ./docker-copy-assets.sh    
+          cd ..          
 
-      # Move the assets to their required folders
+          awk '{sub(/@dev/,"@${{ github.event.inputs.python-branch }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
+          
+          pip install -r requirements.txt
+          pip install behave
+
       # Run the actual cucumber tests
       - name: Test with cucumber
         run: |
-          cd terminus-java
-          cd script
-          chmod +x docker-copy-assets 
-          ./docker-copy-assets
-          chmod +x e2e-test
-          ./e2e-test
+          cd terminus-python
+          behave test/features --junit
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v4
         if: success() || failure() # always run even if the previous step fails
         with:
-          report_paths: 'terminus-java/build/reports/e2e/*.xml'
-          check_name: Terminus Java
+          check_name: Terminus Python
+          report_paths: 'terminus-python/reports/*.xml'
           detailed_summary: true
           include_passed: true
           annotate_notice: true
           summary: true
-
+          follow_symlink: true

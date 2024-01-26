@@ -1,4 +1,4 @@
-name: Execute SDK Standard Tests
+name: Execute Project Terminus
 
 on:
   workflow_dispatch:
@@ -7,55 +7,66 @@ on:
         description: 'Node build repo'
         required: true
         default: 'release-1.5.5'
-      run-java-tests:
-        description: 'Run Java SDK Tests'
-        required: true
-        default: true
-        type: boolean
-      java-repo:
-        description: 'Java Repo'
+      java-branch:
+        description: 'Java branch'
         required: false
-        default: 'issues/e2e_integration'
+      python-branch:
+        description: 'Python branch'
+        required: false
+      dot-net-branch:
+        description: 'C# branch'
+        required: false
+      go-branch:
+        description: 'Go branch'
+        required: false
+      js-branch:
+        description: 'JS branch'
+        required: false
+
+permissions:
+  checks: write
+  pull-requests: write
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-    name: Execute SDK Tests
+    name: Execute Project Terminus
 
     steps:
 
-      - uses: tyriis/docker-image-tag-exists@v2.0.0
-        id: nctl-docker-image-exists
-        with:
-          registry: docker.io
-          repository: stormeye2000/cspr-nctl
-          tag: '${{ github.event.inputs.node-version }}'
-
-
-      - name: Checkout the dockerfile
-        uses: actions/checkout@v3
-
-      - name: NCTL Docker Image Exists
-        if: ${{ steps.nctl-docker-image-exists.outputs.tag == 'found' }}
+      - name: Starting Workflow Jobs
         run: |
-          echo "Using docker.io image...${{ github.event.inputs.node-version }}"         
-          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl:${{ github.event.inputs.node-version }}
+          echo 'Running Project Terminus Workflows...'
 
-
-      - name: NCTL Docker Image Doesn't Exist
-        if: ${{ steps.nctl-docker-image-exists.outputs.tag != 'found' }}
-        run: |
-          echo "Building docker image...${{ github.event.inputs.node-version }}"
-          docker build --build-arg="GITBRANCH=${{ github.event.inputs.node-version }}" -t stormeye2000/cspr-nctl .
-          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl
-
-  workflow:
-
-    if: ${{github.event.inputs.run-java-tests == 'true'}}
-    needs: build
-    name: Java SDK Tests
+  Java:
+    if: ${{github.event.inputs.java-branch != ''}}
     uses: ./.github/workflows/sdk-java.yml
     with:
-      java-repo: ${{ github.event.inputs.java-repo }}
+      java-branch: ${{ github.event.inputs.java-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Python:
+    if: ${{github.event.inputs.python-branch != ''}}
+    uses: ./.github/workflows/sdk-python.yml
+    with:
+      python-branch: ${{ github.event.inputs.python-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Dot-Net:
+    if: ${{github.event.inputs.dot-net-branch != ''}}
+    uses: ./.github/workflows/sdk-dot-net.yml
+    with:
+      dot-net-branch: ${{ github.event.inputs.dot-net-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Go:
+    if: ${{github.event.inputs.go-branch != ''}}
+    uses: ./.github/workflows/sdk-go.yml
+    with:
+      java-branch: ${{ github.event.inputs.java-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Js:
+    if: ${{github.event.inputs.js-repo != ''}}
+    uses: ./.github/workflows/sdk-js.yml
+    with:
+      java-branch: ${{ github.event.inputs.java-branch }}
+      node-version: ${{ github.event.inputs.node-version }}

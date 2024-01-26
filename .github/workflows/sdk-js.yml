@@ -1,4 +1,4 @@
-name: CSPR Java SDK Standard Tests
+name: CSPR Python SDK Standard Tests
 
 on:
   workflow_call:
@@ -15,7 +15,7 @@ on:
 jobs:
   build:
 
-    name: Terminus Java
+    name: Terminus JS
     runs-on: ubuntu-latest
 
     steps:
@@ -41,12 +41,7 @@ jobs:
         run: |
           echo "Building docker image...${{ github.event.inputs.node-version }}"
           docker build --build-arg="GITBRANCH=${{ github.event.inputs.node-version }}" -t stormeye2000/cspr-nctl .
-          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl     
-
-      - name: Wait for NCTL
-        run: |
-          echo "Wait for NCTL"
-          sleep 30s         
+          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl        
 
       # Checkout the latest Casper Java SDK from their repo ready for a build
       - name: Checkout SDK source code
@@ -54,7 +49,7 @@ jobs:
         with:
           repository: casper-sdks/casper-java-sdk
           ref: ${{ inputs.java-branch }}
-          path: terminus-java
+          path: casper-java-sdk
           submodules: true
 
       # JDK environment to build the SDK jar
@@ -64,32 +59,72 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      #      # Build the SDK jar files
+      #      - name: Build SDK JAR
+      #        working-directory: casper-java-sdk
+      #        run: ./gradlew clean build -x test
+      #
+      #      # Upload the built SDK jar as a project artifact
+      #      - name: Upload SDK jar to artifacts
+      #        uses: actions/upload-artifact@v3
+      #        with:
+      #          name: casper-java-sdk-jar
+      #          path: |
+      #            casper-java-sdk/build/libs/*.jar
+      #
+      #      # Checkout the test platform java code
+      #      - name: Checkout test platform code
+      #        uses: actions/checkout@v2
+      #      - name: Set up JDK 11
+      #        uses: actions/setup-java@v2
+      #        with:
+      #          java-version: '11'
+      #          distribution: 'adopt'
+      #
+      #      # Download the SDK jar artifact
+      #      - name: Download casper-java-sdk-jar artifact
+      #        uses: actions/download-artifact@v3
+      #        with:
+      #          name: casper-java-sdk-jar
+      #
+      #      # Gradle needs execute permissions
+      #      - name: Grant execute permission for gradlew
+      #        run: chmod +x gradlew
+
+      #      - name: Debug
+      #        run: |
+      #          ls -ltra
+
+      # Gradle needs execute permissions
       - name: Run project bootstrap
         run: |
-          cd terminus-java
+          cd casper-java-sdk
           git submodule init
           git submodule update --init --recursive
           git submodule update --remote
+      #          chmod +x script/bootstrap
+      #          ./script/bootstrap
 
       # Move the assets to their required folders
       # Run the actual cucumber tests
       - name: Test with cucumber
         run: |
-          cd terminus-java
+          cd casper-java-sdk
           cd script
           chmod +x docker-copy-assets 
           ./docker-copy-assets
-          chmod +x e2e-test
-          ./e2e-test
+          ls -ltra
+          cd ..
+          ls -ltra
+          chmod +x gradlew
+          ./gradlew clean cucumberCli -DrootLogger.level=OFF
 
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v3
         if: success() || failure() # always run even if the previous step fails
         with:
-          report_paths: 'terminus-java/build/reports/e2e/*.xml'
-          check_name: Terminus Java
+          report_paths: 'reports/*.xml'
           detailed_summary: true
           include_passed: true
-          annotate_notice: true
           summary: true
 
