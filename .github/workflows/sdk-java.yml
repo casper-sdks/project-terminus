@@ -89,7 +89,7 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         with:
           report_paths: 'casper-java-sdk/build/reports/e2e/*.xml'
-          name: Java SDK Results
+          check_name: Terminus Java
           detailed_summary: true
           include_passed: true
           annotate_notice: true
