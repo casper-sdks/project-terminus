@@ -3,8 +3,8 @@ name: CSPR Python SDK Standard Tests
 on:
   workflow_call:
     inputs:
-      java-repo:
-        description: 'Java Repo'
+      java-branch:
+        description: 'Java branch'
         required: true
         type: string
       node-version:
@@ -48,7 +48,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: casper-sdks/casper-java-sdk
-          ref: ${{ inputs.java-repo }}
+          ref: ${{ inputs.java-branch }}
           path: casper-java-sdk
           submodules: true
 
