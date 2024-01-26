@@ -1,4 +1,4 @@
-name: Project Terminus Python
+name: Terminus Python
 on:
   workflow_call:
     inputs:

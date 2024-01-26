@@ -1,4 +1,4 @@
-name: CSPR Python SDK Standard Tests
+name: Terminus JS
 
 on:
   workflow_call:

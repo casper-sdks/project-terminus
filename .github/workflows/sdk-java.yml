@@ -1,4 +1,4 @@
-name: CSPR Java SDK Standard Tests
+name: Terminus Java
 
 on:
   workflow_call:
