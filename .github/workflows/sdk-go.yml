@@ -15,7 +15,7 @@ on:
 jobs:
   build:
 
-    name: Java SDK Standard Tests
+    name: Terminus Go
     runs-on: ubuntu-latest
 
     steps:
