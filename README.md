@@ -64,6 +64,6 @@ Scroll down on the next screen and view the run summary as below
 
 ## Notes
 
-We are working within the limitations of GitHub's actions here. For example the dropdown menu can obnly have ten UI items. We are also using a third party action to display the test summary which has its limitations.
+We are working within the limitations of GitHub's actions here. For example the dropdown menu can only have ten UI items. We are also using a third party action to display the test summary which has its limitations.
 
 Work will be done to create a Casper specific test summary action in the future.
