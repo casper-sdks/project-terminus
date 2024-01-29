@@ -10,11 +10,15 @@ Click on the Actions tab highlighted below
 
 ![image-01](img/image-01.png)
 
+------
 
 
-Click on Execute Project Terminus in the left hand panel highlithed below
+
+Click on Execute Project Terminus in the left hand panel highlighted below
 
 ![image-02](img/image-02.png)
+
+------
 
 
 
@@ -24,11 +28,15 @@ This will then display a drop down with run options. The Node build repo option 
 
 ![image-03](img/image-03.png)
 
+------
+
 
 
 Clicking on Run workflow will present the following screen with the amber badge indictating the action is running
 
 ![image-04](img/image-04.png)
+
+------
 
 
 
@@ -36,11 +44,15 @@ Clicking on the workflow will present the following screen
 
 ![image-05](img/image-05.png)
 
+------
+
 
 
 Once the job is completed, succes or failure, click on the Summary tab highlighted below
 
 ![image-06](img/image-06.png)
+
+------
 
 
 
