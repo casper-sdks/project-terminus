@@ -1,0 +1,92 @@
+name: Terminus Python
+on:
+  workflow_call:
+    inputs:
+      python-branch:
+        description: 'Python branch'
+        required: false
+        type: string
+      node-version:
+        description: 'Node build repo'
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Terminus Python
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: tyriis/docker-image-tag-exists@v2.0.0
+        id: nctl-docker-image-exists
+        with:
+          registry: docker.io
+          repository: stormeye2000/cspr-nctl
+          tag: '${{ github.event.inputs.node-version }}'
+
+      - name: Checkout the dockerfile
+        uses: actions/checkout@v3
+
+      - name: NCTL Docker Image Exists
+        if: ${{ steps.nctl-docker-image-exists.outputs.tag == 'found' }}
+        run: |
+          echo "Using docker.io image...${{ github.event.inputs.node-version }}"         
+          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl:${{ github.event.inputs.node-version }}
+
+      - name: NCTL Docker Image Doesn't Exist
+        if: ${{ steps.nctl-docker-image-exists.outputs.tag != 'found' }}
+        run: |
+          echo "Building docker image...${{ github.event.inputs.node-version }}"
+          docker build --build-arg="GITBRANCH=${{ github.event.inputs.node-version }}" -t stormeye2000/cspr-nctl .
+          docker run --rm -it --name cspr-nctl -d -p 25101:25101 -p 11101:11101 -p 14101:14101 -p 18101:18101 stormeye2000/cspr-nctl  
+
+      - name: Wait for NCTL
+        run: |
+          echo "Wait for NCTL"
+          sleep 30s
+
+
+      # Checkout the test platform Python code
+      - name: Checkout the test platform Python code
+        uses: actions/checkout@v2
+        with:
+          repository: stormeye2000/cspr-sdk-standard-tests-python
+          path: terminus-python
+          ref: main
+
+      # Set up Python
+      - name: Set Up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      # Build environment
+      - name: Build test environment
+        run: |
+          cd terminus-python/sh 
+          chmod +x docker-copy-assets.sh 
+          ./docker-copy-assets.sh    
+          cd ..          
+
+          awk '{sub(/@dev/,"@${{ github.event.inputs.python-branch }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
+          
+          pip install -r requirements.txt
+          pip install behave
+
+      # Run the actual cucumber tests
+      - name: Test with cucumber
+        run: |
+          cd terminus-python
+          behave test/features --junit
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure() # always run even if the previous step fails
+        with:
+          check_name: Terminus Python
+          report_paths: 'terminus-python/reports/*.xml'
+          detailed_summary: true
+          include_passed: true
+          annotate_notice: true
+          summary: true
+          follow_symlink: true
