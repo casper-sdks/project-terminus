@@ -76,7 +76,7 @@ jobs:
           cd terminus-dot-net
           cd CsprSdkStandardTestsNet
           dotnet remove package Casper.Network.SDK
-          dotnet add reference /home/runner/work/project-terminus/project-terminus/casper-net-sdk/Casper.Network.SDK/Casper.Network.SDK.csproj
+          dotnet add reference /home/runner/work/terminus/terminus/casper-net-sdk/Casper.Network.SDK/Casper.Network.SDK.csproj
           dotnet restore
 
       - name: Build
