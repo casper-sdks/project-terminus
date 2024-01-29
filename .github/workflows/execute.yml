@@ -1,0 +1,72 @@
+name: Execute Terminus
+
+on:
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: 'Node build repo'
+        required: true
+        default: 'release-1.5.5'
+      java-branch:
+        description: 'Java branch'
+        required: false
+      python-branch:
+        description: 'Python branch'
+        required: false
+      dot-net-branch:
+        description: 'C# branch'
+        required: false
+      go-branch:
+        description: 'Go branch'
+        required: false
+      js-branch:
+        description: 'JS branch'
+        required: false
+
+permissions:
+  checks: write
+  pull-requests: write
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    name: Execute Terminus
+
+    steps:
+
+      - name: Starting Workflow Jobs
+        run: |
+          echo 'Running Terminus Workflows...'
+
+  Java:
+    if: ${{github.event.inputs.java-branch != ''}}
+    uses: ./.github/workflows/sdk-java.yml
+    with:
+      java-branch: ${{ github.event.inputs.java-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Python:
+    if: ${{github.event.inputs.python-branch != ''}}
+    uses: ./.github/workflows/sdk-python.yml
+    with:
+      python-branch: ${{ github.event.inputs.python-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Dot-Net:
+    if: ${{github.event.inputs.dot-net-branch != ''}}
+    uses: ./.github/workflows/sdk-dot-net.yml
+    with:
+      dot-net-branch: ${{ github.event.inputs.dot-net-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Go:
+    if: ${{github.event.inputs.go-branch != ''}}
+    uses: ./.github/workflows/sdk-go.yml
+    with:
+      java-branch: ${{ github.event.inputs.java-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
+  Js:
+    if: ${{github.event.inputs.js-repo != ''}}
+    uses: ./.github/workflows/sdk-js.yml
+    with:
+      java-branch: ${{ github.event.inputs.java-branch }}
+      node-version: ${{ github.event.inputs.node-version }}
