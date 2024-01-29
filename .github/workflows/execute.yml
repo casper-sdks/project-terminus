@@ -1,4 +1,4 @@
-name: Execute Project Terminus
+name: Execute Terminus
 
 on:
   workflow_dispatch:
@@ -32,13 +32,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    name: Execute Project Terminus
+    name: Execute Terminus
 
     steps:
 
       - name: Starting Workflow Jobs
         run: |
-          echo 'Running Project Terminus Workflows...'
+          echo 'Running Terminus Workflows...'
 
   Java:
     if: ${{github.event.inputs.java-branch != ''}}

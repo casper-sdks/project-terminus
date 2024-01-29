@@ -1,4 +1,4 @@
-# Project Terminus
+#Terminus
 
 Formerly Standard SDK Tests.
 
@@ -14,7 +14,7 @@ Click on the Actions tab highlighted below
 
 
 
-Click on Execute Project Terminus in the left hand panel highlighted below
+Click on Execute Terminus in the left hand panel highlighted below
 
 ![image-02](img/image-02.png)
 
@@ -32,7 +32,7 @@ This will then display a drop down with run options. The Node build repo option 
 
 
 
-Clicking on Run workflow will present the following screen with the amber badge indictating the action is running
+Clicking on Run workflow will present the following screen with the amber badge indicating the action is running
 
 ![image-04](img/image-04.png)
 
@@ -48,7 +48,7 @@ Clicking on the workflow will present the following screen
 
 
 
-Once the job is completed, succes or failure, click on the Summary tab highlighted below
+Once the job is completed, success or failure, click on the Summary tab highlighted below
 
 ![image-06](img/image-06.png)
 
