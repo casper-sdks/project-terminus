@@ -63,10 +63,10 @@ jobs:
       # Run tests using gotestsum which will produce a junit file
       - name: Test
         run: |
-          pwd
-          ls -ltra
-          cd terminus-go
-          ls -ltra
+          cd terminus-go/script
+          chmod +x docker-copy-assets
+          ./docker-copy-assets
+          cd ..
           go get github.com/make-software/casper-go-sdk@${{ github.event.inputs.go-branch }}
           go install gotest.tools/gotestsum@latest
           mkdir reports
