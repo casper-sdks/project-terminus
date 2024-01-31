@@ -45,7 +45,6 @@ jobs:
           echo "Wait for NCTL"
           sleep 30s
 
-
       # Checkout the test platform Python code
       - name: Checkout the test platform Python code
         uses: actions/checkout@v2
@@ -58,7 +57,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'
+          go-version: '1.20'
 
       # Run tests using gotestsum which will produce a junit file
       - name: Test
