@@ -87,7 +87,7 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         with:
           report_paths: 'terminus-java/build/reports/e2e/*.xml'
-          check_name: Terminus Java
+          check_name: Java
           detailed_summary: true
           include_passed: true
           annotate_notice: true
