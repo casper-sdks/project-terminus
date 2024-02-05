@@ -52,8 +52,8 @@ jobs:
       - name: Checkout the test platform Python code
         uses: actions/checkout@v2
         with:
-          repository: stormeye2000/cspr-sdk-standard-tests-typescript
-          path: terminus-js
+          repository: casper-sdks/terminus-js-tests
+          path: terminus-js-tests
           ref: main
 
       # Setup Node
@@ -64,7 +64,7 @@ jobs:
       # Run tests using gotestsum which will produce a junit file
       - name: Test
         run: |
-          cd terminus-js/scripts
+          cd terminus-js-tests/scripts
           chmod +x docker-copy-assets
           ./docker-copy-assets
           cd ..
@@ -82,7 +82,7 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         with:
           check_name: JS
-          report_paths: 'terminus-js/reports/*.xml'
+          report_paths: 'terminus-js-tests/reports/*.xml'
           detailed_summary: true
           include_passed: true
           annotate_notice: true
