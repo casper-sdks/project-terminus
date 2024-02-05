@@ -73,7 +73,7 @@ jobs:
           rm package-lock.json
           rm -rf node_modules
           
-          git clone https://github.com/casper-ecosystem/casper-js-sdk.git -b release-2.15.3
+          git clone https://github.com/casper-ecosystem/casper-js-sdk.git -b ${{ github.event.inputs.js-branch }}
           npm install casper-js-sdk
           npm test
 
