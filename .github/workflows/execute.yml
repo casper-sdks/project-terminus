@@ -65,8 +65,8 @@ jobs:
       go-branch: ${{ github.event.inputs.go-branch }}
       node-version: ${{ github.event.inputs.node-version }}
   Js:
-    if: ${{github.event.inputs.js-repo != ''}}
+    if: ${{github.event.inputs.js-branch != ''}}
     uses: ./.github/workflows/sdk-js.yml
     with:
-      java-branch: ${{ github.event.inputs.java-branch }}
+      js-branch: ${{ github.event.inputs.js-branch }}
       node-version: ${{ github.event.inputs.node-version }}
