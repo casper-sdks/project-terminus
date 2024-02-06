@@ -52,9 +52,9 @@ jobs:
       - name: Checkout SDK source code
         uses: actions/checkout@v2
         with:
-          repository: casper-sdks/casper-java-sdk
+          repository: casper-network/casper-java-sdk
           ref: ${{ inputs.java-branch }}
-          path: terminus-java
+          path: casper-java-sdk
           submodules: true
 
       # JDK environment to build the SDK jar
@@ -66,7 +66,7 @@ jobs:
 
       - name: Run project bootstrap
         run: |
-          cd terminus-java
+          cd casper-java-sdk
           git submodule init
           git submodule update --init --recursive
           git submodule update --remote
@@ -75,7 +75,7 @@ jobs:
       # Run the actual cucumber tests
       - name: Test with cucumber
         run: |
-          cd terminus-java
+          cd casper-java-sdk
           cd script
           chmod +x docker-copy-assets 
           ./docker-copy-assets
@@ -86,7 +86,7 @@ jobs:
         uses: mikepenz/action-junit-report@v4
         if: success() || failure() # always run even if the previous step fails
         with:
-          report_paths: 'terminus-java/build/reports/e2e/*.xml'
+          report_paths: 'casper-java-sdk/build/reports/e2e/*.xml'
           check_name: Java
           detailed_summary: true
           include_passed: true
