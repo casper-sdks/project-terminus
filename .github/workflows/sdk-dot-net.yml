@@ -72,22 +72,22 @@ jobs:
         run: |
           cd casper-net-sdk
           dotnet build --configuration Release
-          cd ../terminus-dot-net/TerminusDotNet
+          cd ../terminus-dot-net-tests/TerminusDotNet
+
           dotnet remove package Casper.Network.SDK
           dotnet add reference ../../casper-net-sdk/Casper.Network.SDK/Casper.Network.SDK.csproj
           dotnet restore
 
       - name: Build
         run: |
-          cd terminus-dot-net/TerminusDotNet
+          cd terminus-dotnet-tests/TerminusDotNet
           dotnet build --no-restore
 
       - name: Test
         run: |
-          cd terminus-dot-net/TerminusDotNet
-          cd scripts
-          chmod +x docker-copy-assets.sh
-          ./docker-copy-assets.sh && cd ..
+          cd terminus-dotnet-tests/TerminusDotNet/script
+          chmod +x docker-copy-assets
+          ./docker-copy-assets && cd ..
           
           dotnet test --no-build --logger:junit --results-directory reports
 
@@ -97,7 +97,7 @@ jobs:
         if: success() || failure()
         with:
           check_name: C#
-          report_paths: 'terminus-dotnet-tests/CsprSdkStandardTestsNet/reports/*.xml'
+          report_paths: 'terminus-dotnet-tests/TerminusDotNet/reports/*.xml'
           detailed_summary: true
           include_passed: true
           summary: true

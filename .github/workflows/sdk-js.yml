@@ -64,7 +64,7 @@ jobs:
       # Run tests using gotestsum which will produce a junit file
       - name: Test
         run: |
-          cd terminus-js-tests/scripts
+          cd terminus-js-tests/script
           chmod +x docker-copy-assets
           ./docker-copy-assets
           cd ..

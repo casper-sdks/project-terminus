@@ -63,9 +63,9 @@ jobs:
       # Build environment
       - name: Build test environment
         run: |
-          cd terminus-python-tests/sh 
-          chmod +x docker-copy-assets.sh 
-          ./docker-copy-assets.sh    
+          cd terminus-python-tests/script 
+          chmod +x docker-copy-assets
+          ./docker-copy-assets  
           cd ..          
 
           awk '{sub(/@dev/,"@${{ github.event.inputs.python-branch }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
