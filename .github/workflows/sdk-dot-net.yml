@@ -86,8 +86,7 @@ jobs:
       - name: Test
         run: |
           cd terminus-dotnet-tests/TerminusDotNet/script
-          chmod +x docker-copy-assets
-          ./docker-copy-assets && cd ..
+          chmod +x docker-copy-assets && ./docker-copy-assets && cd ..
           
           dotnet test --no-build --logger:junit --results-directory reports
 
@@ -102,3 +101,9 @@ jobs:
           include_passed: true
           summary: true
 
+      - name: Upload Junit Test Output
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: junit-test-report
+          path: terminus-dotnet-tests/TerminusDotNet/reports/TestResults.xml

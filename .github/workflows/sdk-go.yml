@@ -64,9 +64,7 @@ jobs:
       - name: Test
         run: |
           cd terminus-go-tests/script
-          chmod +x docker-copy-assets
-          ./docker-copy-assets
-          cd ..
+          chmod +x docker-copy-assets && ./docker-copy-assets && cd ..
           
           go get github.com/make-software/casper-go-sdk@${{ github.event.inputs.go-branch }}
           go install gotest.tools/gotestsum@latest

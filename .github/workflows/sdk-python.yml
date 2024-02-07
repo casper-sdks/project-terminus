@@ -64,9 +64,7 @@ jobs:
       - name: Build test environment
         run: |
           cd terminus-python-tests/script 
-          chmod +x docker-copy-assets
-          ./docker-copy-assets  
-          cd ..          
+          chmod +x docker-copy-assets && ./docker-copy-assets && cd ..          
 
           awk '{sub(/@dev/,"@${{ github.event.inputs.python-branch }}")}1' requirements.txt > temp.txt && mv temp.txt requirements.txt 
           
@@ -90,3 +88,10 @@ jobs:
           annotate_notice: true
           summary: true
           follow_symlink: true
+
+      - name: Upload Junit Test Output
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: junit-test-report
+          path: terminus-python-tests/reports/*.xml

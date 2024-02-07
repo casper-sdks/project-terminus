@@ -65,13 +65,10 @@ jobs:
       - name: Test
         run: |
           cd terminus-js-tests/script
-          chmod +x docker-copy-assets
-          ./docker-copy-assets
-          cd ..
+          chmod +x docker-copy-assets && ./docker-copy-assets && cd ..
           
           npm uninstall casper-js-sdk
-          rm package-lock.json
-          rm -rf node_modules
+          rm package-lock.json && rm -rf node_modules
           
           git clone https://github.com/casper-ecosystem/casper-js-sdk.git -b ${{ github.event.inputs.js-branch }}
           npm install casper-js-sdk
@@ -88,3 +85,10 @@ jobs:
           annotate_notice: true
           summary: true
           follow_symlink: true
+
+      - name: Upload Junit Test Output
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: junit-test-report
+          path: terminus-js-tests/reports/*.xml
