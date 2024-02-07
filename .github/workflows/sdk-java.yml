@@ -50,7 +50,7 @@ jobs:
 
       # Checkout the latest Casper Java SDK from their repo ready for a build
       - name: Checkout SDK source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: casper-network/casper-java-sdk
           ref: ${{ inputs.java-branch }}

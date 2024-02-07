@@ -57,7 +57,7 @@ jobs:
           path: casper-net-sdk
 
       - name: Checkout the test platform
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: casper-sdks/terminus-dotnet-tests
           path: terminus-dotnet-tests
