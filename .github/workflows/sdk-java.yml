@@ -94,5 +94,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
-          name: junit-test-report
+          name: java-junit-test-report
           path: casper-java-sdk/build/reports/e2e/*.xml

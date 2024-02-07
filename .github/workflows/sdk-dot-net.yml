@@ -105,5 +105,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
-          name: junit-test-report
+          name: dotnet-junit-test-report
           path: terminus-dotnet-tests/TerminusDotNet/reports/TestResults.xml

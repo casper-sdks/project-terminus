@@ -90,5 +90,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
-          name: junit-test-report
+          name: js-junit-test-report
           path: terminus-js-tests/reports/*.xml

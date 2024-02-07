@@ -93,5 +93,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
-          name: junit-test-report
+          name: python-junit-test-report
           path: terminus-python-tests/reports/*.xml
