@@ -98,7 +98,7 @@ jobs:
         if: success() || failure()
         with:
           check_name: C#
-          report_paths: 'terminus-dot-net/CsprSdkStandardTestsNet/reports/*.xml'
+          report_paths: 'terminus-dot-net/TerminusDotNet/reports/*.xml'
           detailed_summary: true
           include_passed: true
           summary: true
