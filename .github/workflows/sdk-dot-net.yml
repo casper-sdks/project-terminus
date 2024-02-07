@@ -72,7 +72,7 @@ jobs:
         run: |
           cd casper-net-sdk
           dotnet build --configuration Release
-          cd ../terminus-dot-net-tests/TerminusDotNet
+          cd ../terminus-dotnet-tests/TerminusDotNet
 
           dotnet remove package Casper.Network.SDK
           dotnet add reference ../../casper-net-sdk/Casper.Network.SDK/Casper.Network.SDK.csproj
