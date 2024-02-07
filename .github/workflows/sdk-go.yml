@@ -73,11 +73,6 @@ jobs:
           mkdir reports
           gotestsum --format standard-verbose --junitfile reports/report.xml
 
-      - name: Upload Junit Test Output
-        uses: actions/upload-artifact@v4
-        with:
-          name: junit-test-report
-          path: terminus-go-tests/reports/report.xml
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v4
@@ -90,3 +85,9 @@ jobs:
           annotate_notice: true
           summary: true
           follow_symlink: true
+
+      - name: Upload Junit Test Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-test-report
+          path: terminus-go-tests/reports/report.xml
