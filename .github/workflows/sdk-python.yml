@@ -50,8 +50,8 @@ jobs:
       - name: Checkout the test platform Python code
         uses: actions/checkout@v2
         with:
-          repository: stormeye2000/cspr-sdk-standard-tests-python
-          path: terminus-python
+          repository: casper-sdks/terminus-python-tests
+          path: terminus-python-tests
           ref: main
 
       # Set up Python
@@ -63,7 +63,7 @@ jobs:
       # Build environment
       - name: Build test environment
         run: |
-          cd terminus-python/sh 
+          cd terminus-python-tests/sh 
           chmod +x docker-copy-assets.sh 
           ./docker-copy-assets.sh    
           cd ..          
@@ -76,7 +76,7 @@ jobs:
       # Run the actual cucumber tests
       - name: Test with cucumber
         run: |
-          cd terminus-python
+          cd terminus-python-tests
           behave test/features --junit
 
       - name: Publish Test Report
@@ -84,7 +84,7 @@ jobs:
         if: success() || failure() # always run even if the previous step fails
         with:
           check_name: Python
-          report_paths: 'terminus-python/reports/*.xml'
+          report_paths: 'terminus-python-tests/reports/*.xml'
           detailed_summary: true
           include_passed: true
           annotate_notice: true
