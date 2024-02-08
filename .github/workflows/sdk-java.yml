@@ -28,7 +28,7 @@ jobs:
           tag: '${{ github.event.inputs.node-version }}'
 
       - name: Checkout the dockerfile
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: NCTL Docker Image Exists
         if: ${{ steps.nctl-docker-image-exists.outputs.tag == 'found' }}
@@ -50,7 +50,7 @@ jobs:
 
       # Checkout the latest Casper Java SDK from their repo ready for a build
       - name: Checkout SDK source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
         with:
           repository: casper-network/casper-java-sdk
           ref: ${{ inputs.java-branch }}
@@ -59,7 +59,7 @@ jobs:
 
       # JDK environment to build the SDK jar
       - name: Setup SDK Java environment
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'adopt'
@@ -87,8 +87,6 @@ jobs:
           check_name: Java
           detailed_summary: true
           include_passed: true
-          annotate_notice: true
-          summary: true
 
       - name: Upload Junit Test Output
         uses: actions/upload-artifact@v4

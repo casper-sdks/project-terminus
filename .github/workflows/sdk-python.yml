@@ -25,7 +25,7 @@ jobs:
           tag: '${{ github.event.inputs.node-version }}'
 
       - name: Checkout the dockerfile
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: NCTL Docker Image Exists
         if: ${{ steps.nctl-docker-image-exists.outputs.tag == 'found' }}
@@ -48,7 +48,7 @@ jobs:
 
       # Checkout the test platform Python code
       - name: Checkout the test platform Python code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
         with:
           repository: casper-sdks/terminus-python-tests
           path: terminus-python-tests
@@ -56,7 +56,7 @@ jobs:
 
       # Set up Python
       - name: Set Up Python 3.9
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9
 
@@ -85,9 +85,6 @@ jobs:
           report_paths: 'terminus-python-tests/reports/*.xml'
           detailed_summary: true
           include_passed: true
-          annotate_notice: true
-          summary: true
-          follow_symlink: true
 
       - name: Upload Junit Test Output
         uses: actions/upload-artifact@v4

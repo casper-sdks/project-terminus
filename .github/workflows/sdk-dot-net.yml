@@ -29,7 +29,7 @@ jobs:
           tag: '${{ github.event.inputs.node-version }}'
 
       - name: Checkout the dockerfile
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: NCTL Docker Image Exists
         if: ${{ steps.nctl-docker-image-exists.outputs.tag == 'found' }}
@@ -50,21 +50,21 @@ jobs:
           sleep 30s
 
       - name: Checkout SDK source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
         with:
           repository: make-software/casper-net-sdk
           ref: ${{ inputs.dot-net-branch }}
           path: casper-net-sdk
 
       - name: Checkout the test platform
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
         with:
           repository: casper-sdks/terminus-dotnet-tests
           path: terminus-dotnet-tests
           ref: main
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4.0.0
         with:
           dotnet-version: 7.0.x
 
@@ -99,7 +99,6 @@ jobs:
           report_paths: 'terminus-dotnet-tests/TerminusDotNet/reports/*.xml'
           detailed_summary: true
           include_passed: true
-          summary: true
 
       - name: Upload Junit Test Output
         uses: actions/upload-artifact@v4

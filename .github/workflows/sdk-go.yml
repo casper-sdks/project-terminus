@@ -25,7 +25,7 @@ jobs:
           tag: '${{ github.event.inputs.node-version }}'
 
       - name: Checkout the dockerfile
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: NCTL Docker Image Exists
         if: ${{ steps.nctl-docker-image-exists.outputs.tag == 'found' }}
@@ -47,7 +47,7 @@ jobs:
 
       # Checkout the test platform Python code
       - name: Checkout the test platform Go code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
         with:
           repository: casper-sdks/terminus-go-tests
           path: terminus-go-tests
@@ -80,7 +80,6 @@ jobs:
           report_paths: 'terminus-go-tests/reports/*.xml'
           detailed_summary: true
           include_passed: true
-#          summary: true
 
       - name: Upload Junit Test Output
         uses: actions/upload-artifact@v4
