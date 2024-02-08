@@ -78,7 +78,9 @@ jobs:
         with:
           check_name: Go
           report_paths: 'terminus-go-tests/reports/*.xml'
+
           include_passed: true
+          annotate_notice: true
           summary: true
 
       - name: Upload Junit Test Output
