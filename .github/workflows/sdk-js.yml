@@ -28,7 +28,7 @@ jobs:
           tag: '${{ github.event.inputs.node-version }}'
 
       - name: Checkout the dockerfile
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: NCTL Docker Image Exists
         if: ${{ steps.nctl-docker-image-exists.outputs.tag == 'found' }}
@@ -50,7 +50,7 @@ jobs:
 
       # Checkout the test platform Python code
       - name: Checkout the test platform Python code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.1
         with:
           repository: casper-sdks/terminus-js-tests
           path: terminus-js-tests
@@ -65,13 +65,10 @@ jobs:
       - name: Test
         run: |
           cd terminus-js-tests/script
-          chmod +x docker-copy-assets
-          ./docker-copy-assets
-          cd ..
+          chmod +x docker-copy-assets && ./docker-copy-assets && cd ..
           
           npm uninstall casper-js-sdk
-          rm package-lock.json
-          rm -rf node_modules
+          rm package-lock.json && rm -rf node_modules
           
           git clone https://github.com/casper-ecosystem/casper-js-sdk.git -b ${{ github.event.inputs.js-branch }}
           npm install casper-js-sdk
@@ -85,6 +82,10 @@ jobs:
           report_paths: 'terminus-js-tests/reports/*.xml'
           detailed_summary: true
           include_passed: true
-          annotate_notice: true
-          summary: true
-          follow_symlink: true
+
+      - name: Upload Junit Test Output
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: js-junit-test-report
+          path: terminus-js-tests/reports/*.xml
