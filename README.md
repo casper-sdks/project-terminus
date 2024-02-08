@@ -58,7 +58,7 @@ Once the job is completed, success or failure, click on the Summary tab highligh
 
 Scroll down on the next screen and view the run summary as below
 
-![image-07](img/image-07.png)
+![image-07](img/image-08.png)
 
 Click on the artifact file to download the Junit report.
 
