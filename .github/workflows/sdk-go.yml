@@ -46,8 +46,8 @@ jobs:
           sleep 30s
 
       # Checkout the test platform Python code
-      - name: Checkout the test platform Python code
-        uses: actions/checkout@v3
+      - name: Checkout the test platform Go code
+        uses: actions/checkout@v4
         with:
           repository: casper-sdks/terminus-go-tests
           path: terminus-go-tests
@@ -78,9 +78,8 @@ jobs:
         with:
           check_name: Go
           report_paths: 'terminus-go-tests/reports/*.xml'
-
+          detailed_summary: true
           include_passed: true
-          annotate_notice: true
           summary: true
 
       - name: Upload Junit Test Output
