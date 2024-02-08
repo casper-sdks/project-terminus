@@ -80,7 +80,7 @@ jobs:
           report_paths: 'terminus-go-tests/reports/*.xml'
           detailed_summary: true
           include_passed: true
-          summary: true
+#          summary: true
 
       - name: Upload Junit Test Output
         uses: actions/upload-artifact@v4
