@@ -67,7 +67,7 @@ jobs:
       - name: Build test environment
         run: |
           cd terminus-java-tests/script && chmod +x terminus
-          ./terminus build -b ${{ github.event.inputs.java-branch }} -n ${{ github.event.inputs.node-version }} 
+          ./terminus action -b ${{ github.event.inputs.java-branch }} -n ${{ github.event.inputs.node-version }} 
 
       # Run the actual cucumber tests
       - name: Test with cucumber
