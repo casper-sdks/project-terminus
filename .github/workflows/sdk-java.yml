@@ -68,7 +68,7 @@ jobs:
         run: |
           cd terminus-java-tests/script && chmod +x terminus
           ./terminus action -b ${{ github.event.inputs.java-branch }} -n ${{ github.event.inputs.node-version }} 
-          ls -ltra
+          cd .. && ls -ltra
 
       # Run the actual cucumber tests
       - name: Test with cucumber
