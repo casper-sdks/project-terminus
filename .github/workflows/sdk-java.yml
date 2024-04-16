@@ -54,7 +54,7 @@ jobs:
         with:
           repository: casper-sdks/terminus-java-tests
           path: terminus-java-tests
-          ref: main
+          ref: issues/26
 
       # JDK environment to build the SDK jar
       - name: Setup SDK Java environment
@@ -68,6 +68,7 @@ jobs:
         run: |
           cd terminus-java-tests/script && chmod +x terminus
           ./terminus action -b ${{ github.event.inputs.java-branch }} -n ${{ github.event.inputs.node-version }} 
+          ls -ltra
 
       # Run the actual cucumber tests
       - name: Test with cucumber
