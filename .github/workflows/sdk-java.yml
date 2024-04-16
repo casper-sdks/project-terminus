@@ -69,7 +69,6 @@ jobs:
         run: |
           cd terminus-java-tests/script && chmod +x terminus
           ./terminus action -b ${{ github.event.inputs.java-branch }} -n ${{ github.event.inputs.node-version }} 
-          cd .. && ls -ltra
 
       # Run the actual cucumber tests
       - name: Test with cucumber
@@ -91,4 +90,4 @@ jobs:
         if: success() || failure()
         with:
           name: java-junit-test-report
-          path: casper-java-sdk/build/reports/e2e/*.xml
+          path: /reports
