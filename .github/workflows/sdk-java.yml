@@ -49,7 +49,7 @@ jobs:
           sleep 30s         
 
       # Checkout the test platform Java code
-      - name: Checkout the test platform Python code
+      - name: Checkout the test platform Java code
         uses: actions/checkout@v4.1.1
         with:
           repository: casper-sdks/terminus-java-tests
@@ -72,7 +72,7 @@ jobs:
       # Run the actual cucumber tests
       - name: Test with cucumber
         run: |
-          cd terminus-python-tests/script
+          cd terminus-java-tests/script
           ./terminus test
 
       - name: Publish Test Report
