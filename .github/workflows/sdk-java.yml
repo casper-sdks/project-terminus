@@ -90,4 +90,4 @@ jobs:
         if: success() || failure()
         with:
           name: java-junit-test-report
-          path: /reports
+          path: terminus-java-tests/reports/cucumber-report.xml
