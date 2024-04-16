@@ -48,14 +48,13 @@ jobs:
           echo "Wait for CCTL"
           sleep 30s         
 
-      # Checkout the latest Casper Java SDK from their repo ready for a build
-      - name: Checkout SDK source code
+      # Checkout the test platform Java code
+      - name: Checkout the test platform Python code
         uses: actions/checkout@v4.1.1
         with:
-          repository: casper-network/casper-java-sdk
-          ref: ${{ inputs.java-branch }}
-          path: casper-java-sdk
-          submodules: true
+          repository: casper-sdks/terminus-java-tests
+          path: terminus-java-tests
+          ref: main
 
       # JDK environment to build the SDK jar
       - name: Setup SDK Java environment
@@ -64,20 +63,17 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Run project bootstrap
+      # Build environment
+      - name: Build test environment
         run: |
-          cd casper-java-sdk
-          git submodule init
-          git submodule update --init --recursive
-          git submodule update --remote
+          cd terminus-java-tests/script && chmod +x terminus
+          ./terminus build -b ${{ github.event.inputs.java-branch }} -n ${{ github.event.inputs.node-version }} 
 
-      # Move the assets to their required folders
       # Run the actual cucumber tests
       - name: Test with cucumber
         run: |
-          cd casper-java-sdk/script
-          chmod +x docker-copy-assets && ./docker-copy-assets
-          chmod +x e2e-test && ./e2e-test
+          cd terminus-python-tests/script
+          ./terminus test
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v4
