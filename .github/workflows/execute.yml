@@ -6,7 +6,7 @@ on:
       node-version:
         description: 'Node build repo'
         required: true
-        default: 'release-1.5.5'
+        default: 'release-1.5.6'
       java-branch:
         description: 'Java branch'
         required: false

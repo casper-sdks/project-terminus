@@ -24,7 +24,7 @@ Click on Execute Terminus in the left hand panel highlighted below
 
 On the next screen click on Run workflow.
 
-This will then display a drop down with run options. The Node build repo option defines the branch to build the NCTL Docker image from. If the action cannot locate the Docker image in docker.io then the image will be built by the action runner. Populate the blank language SDK fields with the desired branch to test, leave blank to ignore. See the example below.
+This will then display a drop down with run options. The Node build repo option defines the branch to build the CCTL Docker image from. If the action cannot locate the Docker image in docker.io then the image will be built by the action runner. Populate the blank language SDK fields with the desired branch to test, leave blank to ignore. See the example below.
 
 ![image-03](img/image-03.png)
 
