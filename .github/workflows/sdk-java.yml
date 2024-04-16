@@ -55,6 +55,7 @@ jobs:
           repository: casper-sdks/terminus-java-tests
           path: terminus-java-tests
           ref: issues/26
+          submodules: recursive
 
       # JDK environment to build the SDK jar
       - name: Setup SDK Java environment
